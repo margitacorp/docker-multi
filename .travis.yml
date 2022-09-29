@@ -11,12 +11,12 @@ script:
   - docker run -e CI=true multiproject/fe-test npm run test
 
 after_success:
-  - docker build -t multiproject/worker ./worker
-  - docker build -t multiproject/server ./server
-  - docker build -t multiproject/client ./server
-  - docker build -t multiproject/nginx ./nginx
+  - docker build -t serupadenganmu/multi-worker ./worker
+  - docker build -t serupadenganmu/multi-server ./server
+  - docker build -t serupadenganmu/multi-client ./server
+  - docker build -t serupadenganmu/multi-nginx ./nginx
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push multiproject/worker
-  - docker push multiproject/server
-  - docker push multiproject/client
-  - docker push multiproject/nginx
+  - docker push serupadenganmu/multi-worker
+  - docker push serupadenganmu/multi-server
+  - docker push serupadenganmu/multi-client
+  - docker push serupadenganmu/multi-nginx
