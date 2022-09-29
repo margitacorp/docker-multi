@@ -1,0 +1,22 @@
+sudo: required
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - docker build -t multiproject/fe-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run multiproject/fe-test npm run test
+
+after_success:
+  - docker build -t multiproject/worker ./worker
+  - docker build -t multiproject/server ./server
+  - docker build -t multiproject/client ./server
+  - docker build -t multiproject/nginx ./nginx
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push multiproject/worker
+  - docker push multiproject/server
+  - docker push multiproject/client
+  - docker push multiproject/nginx
