@@ -1,0 +1,31 @@
+version: '3'
+services:
+  worker:
+    image: serupadenganmu/multi-worker
+    mem_limit: 128m
+    hostname: worker
+    environment:
+      - REDIS_HOST=$REDIS_HOST
+      - REDIS_PORT=$REDIS_PORT
+  server:
+    image: serupadenganmu/multi-server
+    mem_limit: 128m
+    hostname: api
+    environment:
+      - REDIS_HOST=$REDIS_HOST
+      - REDIS_PORT=$REDIS_PORT
+      - PGHOST=$PGHOST
+      - PGPORT=$PGPORT
+      - PGUSER=$PGUSER
+      - PGPASSWORD=$PGPASSWORD
+      - PGDATABASE=$PGDATABASE
+  client:
+    image: serupadenganmu/multi-client
+    mem_limit: 128m
+    hostname: client
+  nginx:
+    image: serupadenganmu/multi-nginx
+    mem_limit: 128m
+    hostname: nginx
+    ports: 
+      - "80:80"
