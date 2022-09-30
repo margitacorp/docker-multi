@@ -13,7 +13,7 @@ script:
 after_success:
   - docker build -t serupadenganmu/multi-worker ./worker
   - docker build -t serupadenganmu/multi-server ./server
-  - docker build -t serupadenganmu/multi-client ./server
+  - docker build -t serupadenganmu/multi-client ./client
   - docker build -t serupadenganmu/multi-nginx ./nginx
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push serupadenganmu/multi-worker
